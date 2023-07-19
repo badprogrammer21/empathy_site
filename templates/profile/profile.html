@@ -1,0 +1,240 @@
+{% load static %}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+    
+var readURL = function(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.avatar').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+$(".file-upload").on('change', function(){
+    readURL(this);
+});
+});
+  </script>
+</head>
+
+<body>
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+
+  		<div class="col-sm-10"><h1>{%if user.author.hidden_profile and not another_user == user %}Hidden{%else%}{{user.username}}{%endif%}</h1></div>
+    	<div class="col-sm-2"><a href="/users" class="pull-right">
+            <img title="" class="img-circle img-responsive" src="#"></a></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+              
+
+      <div class="text-center">
+        {% if user.author.profile_pic %}
+        <img src="{{user.author.profile_pic.url}}" class="avatar img-circle img-thumbnail" alt="" style="vertical-align: middle;
+        
+        width: 100%;
+        height: auto;
+        border-radius: 50%;">
+        {% else %}  <img src="default.jpg" class="avatar img-circle img-thumbnail" alt="">
+        {% endif %}
+        {% if another_user == user %}
+        <h6>Upload a different photo...</h6>
+        <input type="file" class="text-center center-block file-upload">
+        {% endif %}
+      </div></hr><br>
+
+               
+          <div class="panel panel-default">
+            <div class="panel-heading">Bio <i class="fa fa-link fa-1x"></i></div>
+            <div class="panel-body">{{user.author.bio}}</div>
+          </div>
+          
+          
+          <ul class="list-group">
+            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Forum posts</strong></span>{{lst.0}}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Article posts</strong></span>{{lst.1}}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+          </ul> 
+               
+          <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">
+            	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+            </div>
+          </div>
+          
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                {% if user.username == another_user.username %}
+                <li><a data-toggle="tab" href="#settings">Settings</a></li>
+                <li><a href="#forum_posts">Diary</a></li>
+                {% endif %}
+                <li><a data-toggle="tab" href="#forum_posts">Forums Posts</a></li>
+                <li><a data-toggle="tab" href="#article_posts">Article Posts</a></li>
+                
+              </ul>
+
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                    <div class="form-group"> 
+                        <div class="col-xs-6">
+                          <label for="user_id"><h4>User id</h4><h3>{{user.id}}</h3></label>        
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label for="email"><h4>Email </h4><h3>{{user.email}}</h3></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                        <div class="col-xs-6">
+                            <label for="date_joined"><h4>Date joined</h4><h3>{{user.date_joined}}</h3></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                        <div class="col-xs-6">
+                            <label for="date_joined"><h4>Last activity</h4><h3>{{user.last_login}}</h3></label>
+                        </div>
+                    </div>
+                      
+              
+              <hr>
+              
+             </div><!--/tab-pane-->
+             <div class="tab-pane" id="settings">
+               <h2></h2>
+               <hr>
+               
+                  <form class="form" action="{% url 'edit_profile' %}" method="POST" id="registrationForm">
+                    {% csrf_token %}
+                    <div>
+                        <div class="col-xs-6">
+                            <label for="username"><h4>Username</h4></label>
+                            <input type="username" class="form-control" name="username" id="username" placeholder="{{user.username}}" title="enter your username."
+                            value="{{user.username}}">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-xs-6">
+                            <label for="email"><h4>Email</h4></label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="{{user.email}}" title="enter your email."
+                            value="{{user.email}}">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-xs-6">
+                            <label for="bio"><h4>Bio</h4></label>
+                            <input type="bio" class="form-control" name="bio" id="bio" placeholder="enter a new bio" title="enter a new bio" value="{{user.bio}}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label for="password"><h4>Password</h4></label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="enter your old password or a new one" title="enter your old password or a new one">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                          <label for="password2"><h4>Verify</h4></label>
+                            <input type="password" class="form-control" name="password2" id="password2" placeholder="repeat the password" title="repeat the password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label class="form-check-label">Do not display any information about myself
+                                <input type="checkbox" checked="checked" class="form-check" value="completely_hidden" name="ph">
+                                <span class="checkmark"></span>
+                              </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <label for="hide_profile" class="form-check-label">Hide my profile
+                                <input type="checkbox" checked="checked" class="form-check" value="partially_hidden" name="ph">
+                                <span class="checkmark"></span>
+                              </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                         <div class="col-xs-12">
+                              <br>
+                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                 <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                          </div>
+                    </div>
+              	</form>
+               
+             </div><!--/tab-pane-->
+             <div class="tab-pane" id="forum_posts">
+                <hr>
+                {% if users_forum_posts %}
+                    {% for forum_post in users_forum_posts %}
+                        <div class="post clearfix">
+                            <div class="post-preview">
+                                <h2><a href="{% url 'details' forum_post.slug %}" style="text-decoration: none;
+                color: inherit;">{{forum_post.title|slice:":20"}}</a></h2>
+                                <i class="far fa-calendar">{{forum_post.date}}</i>
+                                <p class="preview-text"><pre>{{forum_post.content|slice:":50"}}   </pre>
+                                
+                                </p>
+                                <a href="#" class="read-more" >Read more</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+             <div class="tab-pane" id="article_posts">
+                <hr>
+                {% if users_article_posts %}
+                    {% for article_post in users_article_posts %}
+                        <div class="post clearfix">
+                            <div class="post-preview">
+                                <h2><a href="{% url 'article_details' article_post.slug %}" style="text-decoration: none;
+                    color: inherit;">{{article_post.title|slice:":10"}}</a></h2>
+                                <i class="far fa-calendar">{{article_post.date}}</i>
+                                <p class="preview-text">
+                                    {{article_post.content|slice:":40"}}
+                                </p>
+                                <a href="#" class="read-more" >Read more</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+              </div>
+               
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+</body>                                

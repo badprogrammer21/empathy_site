@@ -1,0 +1,121 @@
+{% load hitcount_tags %}
+{% load static %}
+{% load crispy_forms_tags %}    
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css_forum/bootstrap.min.css' %}">
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css_forum/custom.css' %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'font_awesome-4.0.3/css/font-awesome.min.css' %}"">
+
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css_forum/style.css' %}" media="screen" />
+
+    <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
+    <link rel="stylesheet" href="{% static 'rs_plugin/css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'rs_plugin/css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css_forum/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_forum/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css_forum/bootstrap.min.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css">
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <section class="content">
+            <!--
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 breadcrumbf">
+                        <a href="#">Borderlands 2</a> <span class="diviver">&gt;</span> <a href="#">General Discussion</a> <span class="diviver">&gt;</span> <a href="#">New Topic</a>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+
+
+
+                        <!-- POST -->
+                        <div class="form-group">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                        <div class="pull-left"><button type="submit" class="btn btn-primary">Post</button></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </div><!-- POST -->
+
+                        <div class="row similarposts">
+                            <div class="col-lg-10"><i class="fa fa-info-circle"></i> <p>Similar Posts according to your <a href="#">Topic Title</a>.</p></div>
+                            <div class="col-lg-2 loading"><i class="fa fa-spinner"></i></div>
+
+                        </div>
+
+                        
+        {% include 'partials/_footer.html' %}
+    </div>
+
+    <!-- get jQuery from the google apis -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+
+    <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+    <script src="js_forum/bootstrap.min.js"></script>
+
+
+    <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
+    <script type="text/javascript">
+
+        var revapi;
+
+        jQuery(document).ready(function() {
+            "use strict";
+            revapi = jQuery('.tp-banner').revolution(
+                    {
+                        delay: 15000,
+                        startwidth: 1200,
+                        startheight: 278,
+                        hideThumbs: 10,
+                        fullWidth: "on"
+                    });
+
+        });	//ready
+
+    </script>
+
+    <!-- END REVOLUTION SLIDER -->
+</body>
+{%endblock%}

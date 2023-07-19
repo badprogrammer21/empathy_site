@@ -1,0 +1,70 @@
+
+{% load static %}
+<section class="header">
+        <nav>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'forum' %}">FORUM</a></li>
+                    <li><a href="{% url 'articles' %}">ARTICLES</a></li>
+                    <li><a href="{% url 'diary' %}">DIARY</a></li>
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url 'register' %}">REGISTER</a></li>
+                        <li><a href="{% url 'login' %}">LOGIN</a></li>
+                    {% else %}
+                        <li><a href="{% url 'profile' user.id %}" target="_blank">PROFILE</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+
+        </nav>
+
+        <div class="text-box">
+            {% if request.resolver_match.url_name == 'index' %}
+            <h1>It is easy to help</h1>
+            <p>Have you ever wondered how many people you could help within a few minutes? <br>
+            How many dreams of yours could have been achieved if you got supported?</p>
+            <a href="#sections" class="hero-btn">
+                <span></span><span></span><span></span><span></span>
+                Check Our Sections
+            </a>
+            {% elif request.resolver_match.url_name == 'forum' %}
+            <h1>Forums</h1>
+            <p>As you have limited time on this page<br>
+            Try to scrutinize all your deep thoughts and feelings</p>
+            <a href="#forum_content" class="hero-btn">
+                <span></span><span></span><span></span><span></span>
+                Scroll down to forums
+            </a>
+            {% elif request.resolver_match.url_name == 'news' %}
+            <h1>News</h1>
+            <p>Media is full of hatred and tragedy<br>
+            So here if the little island of piece</p>
+            <a href="#news_content" class="hero-btn">
+                <span></span><span></span><span></span><span></span>
+                Scroll down to news
+            </a>
+            {% elif request.resolver_match.url_name == 'articles' %}
+            <h1>Articles</h1>
+            <p>As you may have bright ideas you can post here<br>
+            Or simply read other user's researches/articles or some confirmed scientific ones</p>
+            <a href="#articles_content" class="hero-btn">
+                <span></span><span></span><span></span><span></span>
+                Scroll down to articles
+            </a>
+        
+        {% endif %} 
+        </div>
+        
+</section>
+    
+<script>$(function() {$("#includeHtml").load("{% static 'articles.html' %}"); });</script>
+<script>$(function() {$("#includeHtml").load("{% static 'forum.html' %}"); });</script>
+<script>$(function() {$("#includeHtml").load("{% static 'news.html' %}");});</script>
+<script src="{% static 'js/logreg.js' url %}"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

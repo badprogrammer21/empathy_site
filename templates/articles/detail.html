@@ -1,0 +1,103 @@
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+  
+    <!-- Custom Styling -->
+    <link rel="stylesheet" type="text/css" href="{% static 'articles/articles.css' %}" media="screen"/>
+    <!--
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'rs_plugin/css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css_forum/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css_forum/custom.css' %}">
+
+    -->
+    
+    <link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.min.css">
+  
+    <title>Single Post</title>
+  </head>
+  
+  <body>
+    <!-- Facebook Page Plugin SDK -->
+   
+  
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+  
+      <!-- Content -->
+      <div class="content clearfix">
+  
+        <!-- Main Content Wrapper -->
+        <div class="main-content-wrapper">
+          <div class="main-content single">
+            <h1 class="post-title">{{post.title}}</h1>
+  
+            <div class="post-content">
+              {{post.content}}
+            </div>
+  
+          </div>
+        </div>
+        <!-- // Main Content -->
+  
+        <!-- Sidebar -->
+        <div class="sidebar single">
+  
+          <div class="fb-page" data-href="https://web.facebook.com/codingpoets/" data-small-header="false"
+            data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+            <blockquote cite="https://web.facebook.com/codingpoets/" class="fb-xfbml-parse-ignore"><a
+          </div>
+  
+  
+          <div class="section popular">
+            <h2 class="section-title">Categories</h2>
+            {%for category in categories%}
+            <div class="post clearfix">
+              <a href="{% url 'category_detail' category.slug %}" class="title">
+                <h4>{{category.title}}</h4>
+              </a>
+            </div>
+            {%endfor%}
+          </div>
+  
+          <div class="section topics">
+            <h2 class="section-title">Similiar Articles</h2>
+            <ul>
+              {% if similiar_articles %}
+                {% for sm in similiar_articles %}
+                  <li><a href="{% url 'article_details' sm.slug %}">{{sm.title}}</a></li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+        <!-- // Sidebar -->
+  
+      </div>
+      <!-- // Content -->
+  
+    </div>
+      {% include 'partials/_footer.html' %}
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+    <!-- Slick Carousel -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  
+    <!-- Custom Script -->
+    <script src="{% static 'articles.js' %}"></script>
+  
+  </body>
+
+  {% endblock %}
